@@ -3,7 +3,6 @@ import {
     call,
     put
 } from "redux-saga/effects";
-import axios from "axios";
 import * as types from '../actions/types';
 
 const sampleCards = {

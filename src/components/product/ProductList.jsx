@@ -2,10 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Container, Row, Col, Jumbotron } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
 import * as actions from "../../actions";
-import { FETCH_PRODUCTS_LIST } from "../../actions/types";
 import ProductCard from "./ProductCard";
 
 class ProductList extends React.Component {
@@ -14,6 +13,9 @@ class ProductList extends React.Component {
     fetchProductsAPI();
   }
 
+  addToCart = () => {
+    alert("Add to Cart coming in next version");
+  }
   render() {
     const { products } = this.props;
     const productsFiltered = products.slice(0, 20);
@@ -22,7 +24,7 @@ class ProductList extends React.Component {
     productsFiltered.forEach((element, i) => {
       rowItems.push(
         <Col sm="4" key={element.upc}>
-          <ProductCard product={element} />
+          <ProductCard product={element} addToCart={this.addToCart} />
         </Col>
       );
       if (rowItems.length % 3 === 0) {

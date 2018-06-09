@@ -3,11 +3,15 @@ import {
   Card,
   CardImg,
   CardText,
+  CardHeader,
+  CardFooter,
   CardBody,
-  CardLink,
+  Badge,
+  Button,
   CardTitle,
   CardSubtitle
 } from "reactstrap";
+import Rating from 'react-rating';
 
 import "./product.css";
 
@@ -15,19 +19,33 @@ const ProductCard = props => {
   const {
     title,
     type,
-    url,
     description,
+    list_price,
     average_rating,
     images
   } = props.product;
+  const { addToCart } = props;
   return (
     <div>
       <Card>
-        <CardBody>
-          <CardTitle className="text-ellipsis">{title || "Title"}</CardTitle>
-          <CardSubtitle>{type || "Accessorries"}</CardSubtitle>
-        </CardBody>
-        <img
+        <CardHeader>
+          <CardBody>
+            <CardTitle className="text-ellipsis">{title || "Title"}</CardTitle>
+            <CardSubtitle>
+              {type || "Accessorries"}
+              <div className="float-right">
+                <Rating
+                  initialRating={average_rating}
+                  readonly={true}
+                  emptySymbol="fa fa-star-o"
+                  fullSymbol="fa fa-star"
+                  fractions={2}
+                />
+              </div>
+            </CardSubtitle>
+          </CardBody>
+        </CardHeader>
+        <CardImg
           width="100%"
           src={
             images[0]
@@ -40,8 +58,11 @@ const ProductCard = props => {
           <CardText className="text-ellipsis">
             {description || "This a accessory for mutipurpose functionality"}
           </CardText>
-          <CardLink href="#">Add To Cart</CardLink>
         </CardBody>
+        <CardFooter>
+          <Badge style={{ fontSize: "1.5rem" }} color="secondary">{list_price.formatted_price}</Badge>
+          <Button className="float-right" color="danger" onClick={addToCart}>Add To Cart</Button>
+        </CardFooter>
       </Card>
     </div>
   );
